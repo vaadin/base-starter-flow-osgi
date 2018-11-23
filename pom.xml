@@ -443,13 +443,9 @@
                                 </goals>
                                 <configuration>
                                     <executable>java</executable>
-                                    <async>true</async>
-                                    <asyncDestroyOnShutdown>true</asyncDestroyOnShutdown>
                                     <workingDirectory>${project.build.directory}/${felix.home}</workingDirectory>
-                                    <commandlineArgs>-Dgosh.args="--nointeractive
-                                        -s"
-                                        -jar
-                                        bin/felix.jar</commandlineArgs>
+                                    <commandlineArgs>-Dgosh.args="--nointeractive -s"
+                                        -jar bin/felix.jar</commandlineArgs>
                                 </configuration>
                             </execution>
                         </executions>
