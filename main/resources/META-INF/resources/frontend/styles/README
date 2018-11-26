@@ -1,0 +1,5 @@
+Place your optional styles in this folder.
+
+See https://vaadin.com/docs/v10/flow/theme/theming-overview.html for getting started on theming Vaadin Flow applications.
+
+Note that you should register every resource which you need available via HTTP using OsgiVaadinStaticResource or OsgiVaadinContributor.

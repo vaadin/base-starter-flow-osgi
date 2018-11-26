@@ -1,0 +1,3 @@
+Place your Vaadin Designer or hand written templates in this folder.
+
+Note that you should register every resource which you need available via HTTP using OsgiVaadinStaticResource or OsgiVaadinContributor.
