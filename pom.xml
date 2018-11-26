@@ -126,6 +126,13 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>flow-test-util</artifactId>
+            <version>${flow.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -262,7 +269,7 @@
             </build>
         </profile>
         <profile>
-            <id>run-osgi-container</id>
+            <id>prepare-osgi-container</id>
             <dependencies>
 
                 <dependency>
@@ -431,6 +438,13 @@
                             </execution>
                         </executions>
                     </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>run-osgi-container</id>
+            <build>
+                <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
@@ -444,7 +458,8 @@
                                 <configuration>
                                     <executable>java</executable>
                                     <workingDirectory>${project.build.directory}/${felix.home}</workingDirectory>
-                                    <commandlineArgs>-Dgosh.args="--nointeractive -s"
+                                    <commandlineArgs>-Dgosh.args="--nointeractive
+                                        -s"
                                         -jar bin/felix.jar</commandlineArgs>
                                 </configuration>
                             </execution>
