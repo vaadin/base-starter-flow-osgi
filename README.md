@@ -9,8 +9,10 @@ The best way to use it by via [vaadin.com/start](https://vaadin.com/start) - you
 
 To access it directly from github, clone the repository and import the project to the IDE of your choice as a Maven project. You need to have Java 8 installed.
 
-XXX
-Run using `mvn jetty:run` and open [http://localhost:8080](http://localhost:8080) in browser.
+Run using `mvn -Prun-osgi-container verify` and open [http://localhost:8080](http://localhost:8080) in browser.
+This command will run `run-osgi-container` profile which downloads for you Felix OSGi container and installs `felix-jetty` 
+as OSGi web container. It deploys all necessary bundles to Felix and start it synchronously.
+The container will be stopped  when you stop your maven build (e.g. via killing it via Ctrl+C). 
 
 Branching information:
 * `master` the latest version of the starter, using latest platform snapshot

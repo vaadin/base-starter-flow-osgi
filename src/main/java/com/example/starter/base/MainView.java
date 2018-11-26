@@ -1,4 +1,4 @@
-package com.example.starter.base.osgi;
+package com.example.starter.base;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
