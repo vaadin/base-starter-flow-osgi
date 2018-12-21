@@ -18,7 +18,6 @@
         <felix.version>6.0.0</felix.version>
         <felix.distribution>http://central.maven.org/maven2/org/apache/felix/org.apache.felix.main.distribution/${felix.version}/org.apache.felix.main.distribution-${felix.version}.zip</felix.distribution>
         <felix.home>felix-framework-${felix.version}</felix.home>
-        <antrun.plugin.version>1.7</antrun.plugin.version>
     </properties>
 
     <repositories>
@@ -143,7 +142,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>${antrun.plugin.version}</version>
+                <version>1.7</version>
                 <executions>
                     <execution>
                         <id>copy-frontend</id>
@@ -334,7 +333,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-antrun-plugin</artifactId>
-                        <version>${antrun.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>download-files</id>
@@ -352,21 +350,6 @@
                                         <unzip
                                             src="${project.build.directory}/felix.zip"
                                             dest="${project.build.directory}"></unzip>
-                                    </tasks>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>copy-self</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <tasks>
-                                        <copy
-                                                todir="${project.build.directory}/${felix.home}/bundle"
-                                                file="${project.build.directory}/${project.artifactId}-${project.version}.jar">
-                                        </copy>
                                     </tasks>
                                 </configuration>
                             </execution>
@@ -391,6 +374,27 @@
                                         org.seleniumhq.selenium,
                                         javax.servlet</excludeGroupIds>
                                     <excludeArtifactIds>osgi.cmpn</excludeArtifactIds>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-self</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <copy
+                                            todir="${project.build.directory}/${felix.home}/bundle"
+                                            file="${project.build.directory}/${project.artifactId}-${project.version}.jar">
+                                        </copy>
+                                    </tasks>
                                 </configuration>
                             </execution>
                         </executions>
