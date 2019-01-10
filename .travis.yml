@@ -22,5 +22,5 @@ before_cache:
   # remove all build artifacts
   - rm -rf $HOME/.m2/repository/com/vaadin/flow
   - rm -rf $HOME/.m2/repository/com/vaadin/flow-*
-  - rm -rf $HOME/.m2/repository/com/example/project-base-osgi*
+  - rm -rf $HOME/.m2/repository/com/example/project-anotherbundle-osgi*
 
