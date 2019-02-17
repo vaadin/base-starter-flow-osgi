@@ -1,12 +1,20 @@
 package com.example.starter.base;
 
+import com.example.starter.base.osgi.IconResource;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.Push;
+import com.vaadin.flow.dom.ElementConstants;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
 import com.vaadin.flow.theme.lumo.Lumo;
+import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceEvent;
 
 /**
  * The main view contains a button and a click listener.
@@ -15,11 +23,36 @@ import com.vaadin.flow.theme.lumo.Lumo;
 // Need to explicitly declare the Lumo until https://github.com/vaadin/flow/issues/4847 is fixed
 @Theme(Lumo.class)
 @PWA(name = "Project Base for Vaadin Flow", shortName = "Project Base")
+@Push
 public class MainView extends VerticalLayout {
 
     public MainView() {
-        Button button = new Button("Click me",
+        Image icon = new Image(new IconResource().getPath(), "Icon");
+        icon.getElement().setProperty(ElementConstants.STYLE_WIDTH, 48);
+        icon.getElement().setProperty(ElementConstants.STYLE_HEIGHT, 48);
+        icon.getElement().setProperty("border", 2);
+
+        Button button = new Button("Click me", icon,
                 event -> Notification.show("Clicked!"));
+        button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        button.setHeight("60px");
         add(button);
+
+        FrameworkUtil.getBundle(MainView.class).getBundleContext().addServiceListener(serviceEvent -> {
+            String[] objectClass = (String[])
+                    serviceEvent.getServiceReference().getProperty("objectClass");
+
+            if (serviceEvent.getType() == ServiceEvent.REGISTERED) {
+                this.getUI().ifPresent(ui -> ui.access(() -> this.add(new Paragraph("Service of type " + objectClass[0] + " registered."))));
+            } else if (serviceEvent.getType() == ServiceEvent.UNREGISTERING) {
+                this.getUI().ifPresent(ui -> ui.access(() -> this.add(new Paragraph("Service of type " + objectClass[0] + " unregistered."))));
+            } else if (serviceEvent.getType() == ServiceEvent.MODIFIED) {
+                this.getUI().ifPresent(ui -> ui.access(() -> {
+                    this.add(new Paragraph("Service of type " + objectClass[0] + " modified."));
+                }));
+            }
+        });
     }
+
+
 }
