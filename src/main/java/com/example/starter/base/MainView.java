@@ -1,8 +1,12 @@
 package com.example.starter.base;
 
+import com.example.starter.base.osgi.IconResource;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.dom.ElementConstants;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
@@ -18,8 +22,15 @@ import com.vaadin.flow.theme.lumo.Lumo;
 public class MainView extends VerticalLayout {
 
     public MainView() {
-        Button button = new Button("Click me",
+        Image icon = new Image(new IconResource().getPath(), "Icon");
+        icon.getElement().setProperty(ElementConstants.STYLE_WIDTH, 48);
+        icon.getElement().setProperty(ElementConstants.STYLE_HEIGHT, 48);
+        icon.getElement().setProperty("border", 2);
+
+        Button button = new Button("Click me", icon,
                 event -> Notification.show("Clicked!"));
+        button.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        button.setHeight("60px");
         add(button);
     }
 }
