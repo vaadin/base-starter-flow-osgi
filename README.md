@@ -16,3 +16,5 @@ The container will be stopped  when you stop your maven build (e.g. via killing 
 
 Branching information:
 * `master` the latest version of the starter, using latest platform snapshot
+* `v12` the version for Vaadin 12
+* `v13` the version for Vaadin 13
