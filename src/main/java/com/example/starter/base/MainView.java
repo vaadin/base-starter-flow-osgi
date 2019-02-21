@@ -1,6 +1,5 @@
 package com.example.starter.base;
 
-import com.example.starter.base.osgi.IconResource;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
