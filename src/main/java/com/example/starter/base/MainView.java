@@ -30,7 +30,11 @@ public class MainView extends VerticalLayout {
 
         UI.getCurrent().setPollInterval(500);
 
-        Image icon = new Image(new IconResource().getPath(), "Icon");
+        // Below demonstrates that the image is available at the OSGi bundle
+        // specific 'absolute' (within the bundle) path, which is exposed to
+        // be used via HTTP.
+        Image icon = new Image("/icons/icon.png", "Icon");
+
         icon.getElement().setProperty(ElementConstants.STYLE_WIDTH, 48);
         icon.getElement().setProperty(ElementConstants.STYLE_HEIGHT, 48);
         icon.getElement().setProperty("border", 2);
