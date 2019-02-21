@@ -1,13 +1,13 @@
 package com.example.starter.base;
 
 import com.example.starter.base.osgi.IconResource;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Paragraph;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.dom.ElementConstants;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
@@ -23,10 +23,13 @@ import org.osgi.framework.ServiceEvent;
 // Need to explicitly declare the Lumo until https://github.com/vaadin/flow/issues/4847 is fixed
 @Theme(Lumo.class)
 @PWA(name = "Project Base for Vaadin Flow", shortName = "Project Base")
-@Push
+//@Push // does not work yet-- https://github.com/vaadin/flow/issues/5081
 public class MainView extends VerticalLayout {
 
     public MainView() {
+
+        UI.getCurrent().setPollInterval(500);
+
         Image icon = new Image(new IconResource().getPath(), "Icon");
         icon.getElement().setProperty(ElementConstants.STYLE_WIDTH, 48);
         icon.getElement().setProperty(ElementConstants.STYLE_HEIGHT, 48);
@@ -53,6 +56,4 @@ public class MainView extends VerticalLayout {
             }
         });
     }
-
-
 }
