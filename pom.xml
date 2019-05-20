@@ -13,7 +13,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <vaadin.version>13.0.4</vaadin.version>
+        <vaadin.version>14.0.0.beta1</vaadin.version>
 
         <felix.version>6.0.0</felix.version>
         <felix.distribution>http://central.maven.org/maven2/org/apache/felix/org.apache.felix.main.distribution/${felix.version}/org.apache.felix.main.distribution-${felix.version}.zip</felix.distribution>
@@ -28,12 +28,20 @@
             <url>http://maven.vaadin.com/vaadin-addons</url>
         </repository>
         <repository>
+            <id>vaadin-prereleases</id>
+            <url>https://maven.vaadin.com/vaadin-prereleases</url>
+        </repository>
+        <repository>
             <id>vaadin-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
         </repository>
     </repositories>
 
     <pluginRepositories>
+        <pluginRepository>
+            <id>vaadin-prereleases</id>
+            <url>https://maven.vaadin.com/vaadin-prereleases</url>
+        </pluginRepository>
         <pluginRepository>
             <id>vaadin-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/vaadin-snapshots/</url>
@@ -399,6 +407,21 @@
                                     </tasks>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>copy-self</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <tasks>
+                                        <copy
+                                            todir="${project.build.directory}/${felix.home}/bundle"
+                                            file="${project.build.directory}/${project.artifactId}-${project.version}.jar">
+                                        </copy>
+                                    </tasks>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>
@@ -420,27 +443,6 @@
                                         org.seleniumhq.selenium,
                                         javax.servlet</excludeGroupIds>
                                     <excludeArtifactIds>osgi.cmpn</excludeArtifactIds>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>copy-self</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <tasks>
-                                        <copy
-                                            todir="${project.build.directory}/${felix.home}/bundle"
-                                            file="${project.build.directory}/${project.artifactId}-${project.version}.jar">
-                                        </copy>
-                                    </tasks>
                                 </configuration>
                             </execution>
                         </executions>
