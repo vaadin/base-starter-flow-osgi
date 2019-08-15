@@ -14,10 +14,5 @@ This command will run profiles which downloads for you Felix OSGi container and 
 as OSGi web container. It deploys all necessary bundles to Felix and start it synchronously.
 The container will be stopped  when you stop your maven build (e.g. by killing it via `Ctrl+C`).
 
-Branching information:
-* `master` the latest version of the starter, using the latest platform version
-* `v12` the version for Vaadin 12
-* `v13` the version for Vaadin 13
-
 :warning:
 At the moment, Vaadin 14 supports OSGi only in compatibility mode. 
