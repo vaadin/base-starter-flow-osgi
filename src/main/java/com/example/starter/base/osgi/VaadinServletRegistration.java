@@ -1,5 +1,6 @@
 package com.example.starter.base.osgi;
 
+import com.vaadin.flow.function.DeploymentConfiguration;
 import java.util.Hashtable;
 
 import javax.servlet.Servlet;
@@ -12,6 +13,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 
 import com.vaadin.flow.server.VaadinServlet;
+import com.vaadin.flow.server.VaadinServletConfiguration;
+import java.util.Properties;
+import javax.servlet.annotation.WebServlet;
 
 /**
  * Register a VaadinServlet via HTTP Whiteboard specification
@@ -30,6 +34,14 @@ public class VaadinServletRegistration {
 
             getService().setClassLoader(getClass().getClassLoader());
         }
+
+        @Override
+        protected DeploymentConfiguration createDeploymentConfiguration(Properties initParameters) {
+            // npm mode is not currently supported
+            initParameters.setProperty("compatibilityMode", "true");
+            return super.createDeploymentConfiguration(initParameters);
+        }
+        
     }
 
     @Activate
