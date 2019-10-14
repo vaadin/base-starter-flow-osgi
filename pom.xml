@@ -13,7 +13,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <vaadin.version>14.0.8</vaadin.version>
+        <vaadin.version>14.0.9</vaadin.version>
 
         <felix.version>6.0.0</felix.version>
         <felix.distribution>https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.main.distribution/${felix.version}/org.apache.felix.main.distribution-${felix.version}.zip</felix.distribution>
