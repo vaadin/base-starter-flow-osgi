@@ -1,5 +1,3 @@
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/vaadin-flow/Lobby#?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
 # Base Starter for Vaadin Flow and OSGi
 
 This project can be used as a starting point to create your own Vaadin Flow application bundle for OSGi.
