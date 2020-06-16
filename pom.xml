@@ -474,6 +474,8 @@
         </profile>
         <profile>
             <id>java11</id>
+            <!-- Java 11 has no built-in "jaxb" and "activation" packages so they should
+                 be provided as dependencies to be able to resolve bundles which depends on them -->
             <activation>
                 <jdk>11</jdk>
             </activation>
