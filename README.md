@@ -27,5 +27,44 @@ properties.setProperty(
 
 You may use `"false"` as a value to switch off production mode.
 
+## Build and run a Vaadin web application OSGi bundle 
+
+At the moment Flow doesn't provide automatic servlet registration so servlet needs to be 
+registered manually in the web application project. The example how to do it is 
+provided in the project (see `VaadinServletRegistration`).
+
+Vaadin dependencies and core OSGi dependencies are required to be able to build Vaadin web application bundle.
+These artifact are listed in the `dependencies` section of the project pom file.
+The project can be built using command `mvn -Pproduction package` which produces 
+a bundle to deploy to OSGi container.
+
+The generated package (bundle) is not enough to be able to run it on OSGi container.
+There are a number of bundles which needs to be deployed to OSGi container: these bundles
+provide services which are required to run the web application bundle.
+Such bundles may vary per OSGi container. The project contains these dependencies for Felix Jetty
+in `prepare-osgi-container` profile which copies them into the Felix bundle folder so that 
+they will be deployed automatically when Felix starts.
+
+This information also can be found [here](https://github.com/vaadin/flow-and-components-documentation/blob/V14.3/documentation/osgi/tutorial-osgi-basic.asciidoc). It's written for compatibility mode but the part related to the 
+compatibility mode is obvious there: everything related to dependencies and running the app is the same.
+There is no any need to register static resources in NPM mode since all frontend 
+resources are bundled into one file which is packaged into the web app Jar 
+automatically. Webjars section also should be omitted.
+
+## Limitations
+
+Here is a list of things which are not currently supported:
+
+- NPM dev mode: it's only possible to run Vaadin web application in production mode
+- it's not possible to use OSGi declarative services with Vaadin components: 
+you may not inject a service declaratively in Vaadin classes (using annotations) 
+just because UI objects are not managed by OSGi. But you still may call OSGi services programmatically of course.
+- as mentioned above: there is no yet automatic servlet registration. So the web application 
+bundle should register the servlet itself.
+- there is no documentation and it's not clear how to make Push working: the main question 
+here is enabling websockets on pure OSGi container. It works on hybrid OSGi container which allows
+to deploy WARs (like Karaf) but this is exactly the same as for plain web server. It's not clear what
+needs to be done to enable websockets for a pure OSGi container.
+
 :warning:
 At the moment, Vaadin 14 supports OSGi only in production mode. 
