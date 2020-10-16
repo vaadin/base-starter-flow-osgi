@@ -1,7 +1,6 @@
 package com.example.starter.base.osgi;
 
 import java.util.Hashtable;
-import java.util.Properties;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -15,9 +14,6 @@ import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 
-import com.vaadin.flow.function.DeploymentConfiguration;
-import com.vaadin.flow.server.DefaultDeploymentConfiguration;
-import com.vaadin.flow.server.DeploymentConfigurationFactory;
 import com.vaadin.flow.server.InitParameters;
 import com.vaadin.flow.server.VaadinServlet;
 
@@ -26,6 +22,8 @@ import com.vaadin.flow.server.VaadinServlet;
  */
 @Component(immediate = true)
 public class VaadinServletRegistration {
+
+    private static final String INIT_PARAMETER_PREFIX = "servlet.init.";
 
     private HttpService httpService;
 
@@ -41,34 +39,6 @@ public class VaadinServletRegistration {
             getService().setClassLoader(getClass().getClassLoader());
         }
 
-        @Override
-        protected DeploymentConfiguration createDeploymentConfiguration(
-                Properties initParameters) {
-            initParameters.remove(
-                    DeploymentConfigurationFactory.DEV_MODE_ENABLE_STRATEGY);
-            initParameters.put(InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE,
-                    true);
-            DeploymentConfiguration config = new DefaultDeploymentConfiguration(
-                    getClass(), initParameters) {
-                @Override
-                public boolean isProductionMode() {
-                    return true;
-                }
-
-                @Override
-                public boolean isStatsExternal() {
-                    return true;
-                }
-
-                @Override
-                public String getExternalStatsUrl() {
-                    return "/VAADIN/config/stats.json";
-                }
-            };
-
-            return config;
-        }
-
     }
 
     @Activate
@@ -77,9 +47,14 @@ public class VaadinServletRegistration {
         properties.put(
                 HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_ASYNC_SUPPORTED,
                 true);
-        properties.put(InitParameters.SERVLET_PARAMETER_COMPATIBILITY_MODE,
-                false);
-        properties.put(InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE, true);
+        properties.put(
+                INIT_PARAMETER_PREFIX
+                        + InitParameters.SERVLET_PARAMETER_COMPATIBILITY_MODE,
+                Boolean.FALSE.toString());
+        properties.put(
+                INIT_PARAMETER_PREFIX
+                        + InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE,
+                Boolean.TRUE.toString());
         properties.put(HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN,
                 "/*");
         ctx.registerService(Servlet.class, new FixedVaadinServlet(),

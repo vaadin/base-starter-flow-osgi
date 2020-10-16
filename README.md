@@ -12,5 +12,20 @@ This command will run profiles which downloads for you Felix OSGi container and 
 as OSGi web container. It deploys all necessary bundles to Felix and start it synchronously.
 The container will be stopped  when you stop your maven build (e.g. by killing it via `Ctrl+C`).
 
+Servlet initial parameters may be passed via `Properties` object in the `registerService` method as a last
+parameter value. Every servlet init parameter should be prefixed by `"servlet.init."`  and stored in the 
+`Properties` object. Make sure that you store a `String` value as a parameter value: so you may not store
+`true`  as a boolean value to set init parameter value to `true` , you should set `"true"` String value.
+In the example production mode property value is set via the call:
+
+```java
+properties.setProperty(
+                "servlet.init."
+                        + InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE,
+                Boolean.TRUE.toString());
+```
+
+You may use `"false"` as a value to switch off production mode.
+
 :warning:
 At the moment, Vaadin 14 supports OSGi only in production mode. 
