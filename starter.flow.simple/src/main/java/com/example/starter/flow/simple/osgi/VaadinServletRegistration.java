@@ -1,4 +1,4 @@
-package com.example.starter.base.osgi;
+package com.example.starter.flow.simple.osgi;
 
 import java.util.Hashtable;
 import java.util.Properties;

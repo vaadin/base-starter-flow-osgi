@@ -1,4 +1,4 @@
-package com.example.starter.base;
+package com.example.starter.flow.better;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
@@ -19,7 +19,7 @@ public class MainView extends VerticalLayout {
 
     public MainView() {
         Button button = new Button("Click me",
-                event -> Notification.show("Clicked!"));
+            event -> Notification.show("Vaadin loves OSGi!"));
         add(button);
     }
 }

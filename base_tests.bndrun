@@ -1,0 +1,9 @@
+-include: base.bndrun
+
+-tester: biz.aQute.tester.junit-platform
+
+-runrequires.tests: \
+	bnd.identity;id='${project.groupId}.${project.artifactId}-tests',\
+	bnd.identity;id='${project.groupId}.${project.artifactId}',\
+	bnd.identity;id='junit-jupiter-engine',\
+	bnd.identity;id='junit-platform-launcher'
