@@ -18,6 +18,7 @@ Run the Application using `java -jar application/application.jar`
 Special Commands:
 - Resolve the Framework using `mvn bnd-resolver:resolve application/pom.xml`
 - Run the Application using `mvn bnd-run:run -f application/pom.xml`
+- Deploy changes into an running Framework `mvn install -DskipTests -f starter.flow.better/pom.xml`
 - Export the Application using `mvn bnd-export:export -f application/pom.xml`
 
 
