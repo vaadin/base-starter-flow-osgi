@@ -71,37 +71,37 @@
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-osgi</artifactId>
-            <version>2.5-SNAPSHOT</version>
+            <version>2.5.osgi-SNAPSHOT</version>
         </dependency>
         
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-server</artifactId>
-            <version>2.5-SNAPSHOT</version>
+            <version>2.5.osgi-SNAPSHOT</version>
         </dependency>
         
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-data</artifactId>
-            <version>2.5-SNAPSHOT</version>
+            <version>2.5.osgi-SNAPSHOT</version>
         </dependency>
         
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-client</artifactId>
-            <version>2.5-SNAPSHOT</version>
+            <version>2.5.osgi-SNAPSHOT</version>
         </dependency>
         
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-html-components</artifactId>
-            <version>2.5-SNAPSHOT</version>
+            <version>2.5.osgi-SNAPSHOT</version>
         </dependency>
         
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>flow-push</artifactId>
-            <version>2.5-SNAPSHOT</version>
+            <version>2.5.osgi-SNAPSHOT</version>
         </dependency>
         
 
