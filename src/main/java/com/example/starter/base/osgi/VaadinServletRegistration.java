@@ -9,8 +9,6 @@ import javax.servlet.ServletException;
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.http.HttpService;
 import org.osgi.service.http.NamespaceException;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 
@@ -24,8 +22,6 @@ import com.vaadin.flow.server.VaadinServlet;
 public class VaadinServletRegistration {
 
     private static final String INIT_PARAMETER_PREFIX = "servlet.init.";
-
-    private HttpService httpService;
 
     /**
      * This class is a workaround for #4367. This will be removed after the
@@ -59,19 +55,6 @@ public class VaadinServletRegistration {
                 "/*");
         ctx.registerService(Servlet.class, new FixedVaadinServlet(),
                 properties);
-
-        httpService.registerResources("/VAADIN/config/stats.json",
-                "/META-INF/VAADIN/config/stats.json",
-                httpService.createDefaultHttpContext());
-    }
-
-    @Reference
-    void setHttpService(HttpService service) {
-        this.httpService = service;
-    }
-
-    void unsetHttpService(HttpService service) {
-        this.httpService = null;
     }
 
 }

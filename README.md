@@ -61,10 +61,10 @@ you may not inject a service declaratively in Vaadin classes (using annotations)
 just because UI objects are not managed by OSGi. But you still may call OSGi services programmatically of course.
 - as mentioned above: there is no yet automatic servlet registration. So the web application 
 bundle should register the servlet itself.
-- there is no documentation and it's not clear how to make Push working: the main question 
-here is enabling websockets on pure OSGi container. It works on hybrid OSGi container which allows
+- there is no documentation and it's not clear how to make Push working with WebSockets: the main question 
+here is enabling WS on pure OSGi container. It works on hybrid OSGi container which allows
 to deploy WARs (like Karaf) but this is exactly the same as for plain web server. It's not clear what
-needs to be done to enable websockets for a pure OSGi container.
+needs to be done to enable WS for a pure OSGi container.
 
 :warning:
 At the moment, Vaadin 14 supports OSGi only in production mode. 
