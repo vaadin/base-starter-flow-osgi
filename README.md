@@ -51,6 +51,20 @@ There is no any need to register static resources in NPM mode since all frontend
 resources are bundled into one file which is packaged into the web app Jar 
 automatically. Webjars section also should be omitted.
 
+## Deploying Vaadin specific bundles to OSGi container
+
+Vaadin application generally contains dependencies to other bundles: e.g. Vaadin components like `Button`,
+`TextField` , etc. Every Vaadin component is based on a Web Component which
+is represented by frontend resources. All frontend resources are built into a bundle
+along with Vaadin WAB. As a result:
+ - any Vaadin component bundle update is possible only within the same minor version, 
+ so that the Web Component version stays the same (and only Java code is updated). We don't recommend 
+ updating any version over a minor for Flow or the web component Flow integrations (even though it's
+ not prevented anyhow at the moment).
+ - Updating any bundle that has frontend resources requires that the frontend build goal `build-frontend` 
+ is run and the WAB is redeployed to get the static frontend bundle updated.
+
+
 ## Limitations
 
 Here is a list of things which are not currently supported:
