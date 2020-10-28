@@ -31,7 +31,7 @@ Version             : 1.0.0
 
 ## Components
 
-### com.example.starter.flow.better.osgi.FixedVaadinServlet - *state = enabled, activation = immediate*
+### com.example.starter.flow.better.osgi.FixedVaadinServlet - *state = enabled, activation = delayed*
 
 #### Description
 
@@ -46,11 +46,8 @@ Version             : 1.0.0
 |Name |Type |Value |
 |--- |--- |--- |
 |servlet.init.compatibilityMode |Boolean |false |
-|servlet.init.productionMode |Boolean |true |
 |osgi.http.whiteboard.servlet.asyncSupported |Boolean |true |
 |osgi.http.whiteboard.servlet.pattern |String[] |["/*"] |
-|osgi.http.whiteboard.resource.pattern |String[] |["/VAADIN/config/stats.json"] |
-|osgi.http.whiteboard.resource.prefix |String |"/META-INF/VAADIN/config/stats.json" |
 
 #### Configuration - *policy = optional*
 
@@ -60,7 +57,15 @@ No information available.
 
 #### Reference bindings
 
-No bindings.
+|Attribute |Value |
+|--- |--- |
+|name |pr |
+|interfaceName |com.vaadin.flow.di.ResourceProvider |
+|target | |
+|cardinality |1..1 |
+|policy |static |
+|policyOption |reluctant |
+|scope |bundle |
 
 #### OSGi-Configurator
 
@@ -82,12 +87,6 @@ No bindings.
          * Type = Boolean
          * Default = true
          */
-         // "servlet.init.productionMode": null,
-
-        /*
-         * Type = Boolean
-         * Default = true
-         */
          // "osgi.http.whiteboard.servlet.asyncSupported": null,
 
         /*
@@ -96,21 +95,10 @@ No bindings.
          */
          // "osgi.http.whiteboard.servlet.pattern": null,
 
-        /*
-         * Type = String[]
-         * Default = ["/VAADIN/config/stats.json"]
-         */
-         // "osgi.http.whiteboard.resource.pattern": null,
-
-        /*
-         * Type = String
-         * Default = "/META-INF/VAADIN/config/stats.json"
-         */
-         // "osgi.http.whiteboard.resource.prefix": null,
-
 
         //# Reference bindings
-        // none
+        // "pr.target": "(component.pid=*)"
+
 
         //# ObjectClassDefinition - Attributes
         // (No PidOcd available.)

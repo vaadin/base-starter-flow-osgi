@@ -12,11 +12,11 @@ Main Command: `mvn clean install`
 - run tests inside the osgi framework when `tests.bndrun` file exists in project.
 - generates the Application if `application.bndrun` file exists in project.
 
-Run the Application using `java -jar application/application.jar`
+Run the Application using `java -jar application/target/application.jar`
 
 
 Special Commands:
-- Resolve the Framework using `mvn bnd-resolver:resolve application/pom.xml`
+- Resolve the Framework using `mvn bnd-resolver:resolve -f application/pom.xml`
 - Run the Application using `mvn bnd-run:run -f application/pom.xml`
 - Deploy changes into an running Framework `mvn install -DskipTests -f starter.flow.better/pom.xml`
 - Export the Application using `mvn bnd-export:export -f application/pom.xml`

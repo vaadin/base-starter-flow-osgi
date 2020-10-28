@@ -29,12 +29,12 @@ public @interface VaadinMode {
 	 */
 	boolean compatibilityMode() default false;
 
-	/**
-	 * Service property ProductionMode.
-	 *
-	 * @return The SERVLET_PARAMETER_PRODUCTION_MODE.
-	 * @see org.osgi.service.http.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX
-	 * @see com.vaadin.flow.server.InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE
-	 */
-	boolean productionMode() default true;
+	//	/**
+	//	 * Service property ProductionMode.
+	//	 *
+	//	 * @return The SERVLET_PARAMETER_PRODUCTION_MODE.
+	//	 * @see org.osgi.service.http.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX
+	//	 * @see com.vaadin.flow.server.InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE
+	//	 */
+	//	boolean productionMode() default true;
 }

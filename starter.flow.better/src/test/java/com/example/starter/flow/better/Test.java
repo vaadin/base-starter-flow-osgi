@@ -16,7 +16,7 @@ public class Test {
 			+ "VAADIN/config/stats.json";
 
 	@org.junit.jupiter.api.Test
-	void testName() throws Exception {
+	void testRootConnection() throws Exception {
 
 		System.out.println();
 		URL url = new URL(HTTP_LOCALHOST_8080);
@@ -46,20 +46,4 @@ public class Test {
 
 	}
 
-	@org.junit.jupiter.api.Test
-	void testJson() throws Exception {
-
-		URL url = new URL(HTTP_LOCALHOST_8080_VAADIN_CONFIG_STATS_JSON);
-
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setRequestMethod("GET");
-		connection.connect();
-
-		int code = connection.getResponseCode();
-
-		assertThat(code).isEqualTo(200);
-
-	}
-
-	//
 }

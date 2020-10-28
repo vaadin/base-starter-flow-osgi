@@ -1,18 +1,13 @@
 package com.example.starter.flow.better.osgi;
 
-import java.util.Properties;
-
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
-import com.vaadin.flow.function.DeploymentConfiguration;
-import com.vaadin.flow.server.DefaultDeploymentConfiguration;
-import com.vaadin.flow.server.DeploymentConfigurationFactory;
-import com.vaadin.flow.server.InitParameters;
+import com.vaadin.flow.di.ResourceProvider;
 import com.vaadin.flow.server.VaadinServlet;
 import org.osgi.service.component.annotations.Component;
-import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardResource;
+import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletAsyncSupported;
 import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPattern;
 
@@ -20,7 +15,8 @@ import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPatte
  * @author Stefan Bischof
  * @author Vaadin Ltd
  */
-@Component(immediate = true, service = { Servlet.class })
+@Component(// immediate = true,
+		service = { Servlet.class })
 /*
  * Same like @VaadinMode
  *
@@ -33,8 +29,14 @@ import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPatte
 @VaadinMode
 @HttpWhiteboardServletAsyncSupported
 @HttpWhiteboardServletPattern("/*")
-@HttpWhiteboardResource(pattern = "/VAADIN/config/stats.json", prefix = "/META-INF/VAADIN/config/stats.json")
+//@HttpWhiteboardResource(pattern = "/VAADIN/config/stats.json", prefix = "/META-INF/VAADIN/config/stats.json")
 public class FixedVaadinServlet extends VaadinServlet {
+
+	// FIXME: this service will only be activated when an ResourceProvider exists-
+	// fixes an issue on bundle activation order. Must gibe a better way then this
+	// or R8 Condition-Service
+	@Reference
+	ResourceProvider pr;
 
 	@Override
 	public void init(ServletConfig servletConfig) throws ServletException {
@@ -42,36 +44,6 @@ public class FixedVaadinServlet extends VaadinServlet {
 		super.init(servletConfig);
 
 		getService().setClassLoader(getClass().getClassLoader());
-	}
-
-	@Override
-	protected DeploymentConfiguration createDeploymentConfiguration(Properties initParameters) {
-
-		initParameters.remove(DeploymentConfigurationFactory.DEV_MODE_ENABLE_STRATEGY);
-		initParameters.put(InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE, true);
-		DeploymentConfiguration config = new DefaultDeploymentConfiguration(getClass(),
-				initParameters) {
-
-			@Override
-			public boolean isProductionMode() {
-
-				return true;
-			}
-
-			@Override
-			public boolean isStatsExternal() {
-
-				return true;
-			}
-
-			@Override
-			public String getExternalStatsUrl() {
-
-				return "/VAADIN/config/stats.json";
-			}
-		};
-
-		return config;
 	}
 
 }
