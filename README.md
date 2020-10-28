@@ -16,16 +16,29 @@ Servlet initial parameters may be passed via `Properties` object in the `registe
 parameter value. Every servlet init parameter should be prefixed by `"servlet.init."`  and stored in the 
 `Properties` object. Make sure that you store a `String` value as a parameter value: so you may not store
 `true`  as a boolean value to set init parameter value to `true` , you should set `"true"` String value.
-In the example production mode property value is set via the call:
+In the example the compatibility mode property value is set via the call:
 
 ```java
-properties.setProperty(
-                "servlet.init."
-                        + InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE,
-                Boolean.TRUE.toString());
+properties.put(INIT_PARAMETER_PREFIX
+                        + InitParameters.SERVLET_PARAMETER_COMPATIBILITY_MODE,
+                Boolean.FALSE.toString());
 ```
 
-You may use `"false"` as a value to switch off production mode.
+You may use `"true"` as a value to switch to compatibility mode.
+
+Same way can be used to set production mode via the initial parameters.
+Another way to set these values is explicitly set them via the vaadin maven plugin configuration:
+
+```xml
+ <configuration>
+    <compatibilityMode>false</compatibilityMode>
+    <productionMode>false</productionMode>
+</configuration>
+
+```
+
+The values will be set in the token file (`flow-build-info.json`) which is read to 
+create a deployment configuration for a Vaadin servlet.
 
 ## Build and run a Vaadin web application OSGi bundle 
 

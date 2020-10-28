@@ -47,10 +47,6 @@ public class VaadinServletRegistration {
                 INIT_PARAMETER_PREFIX
                         + InitParameters.SERVLET_PARAMETER_COMPATIBILITY_MODE,
                 Boolean.FALSE.toString());
-        properties.put(
-                INIT_PARAMETER_PREFIX
-                        + InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE,
-                Boolean.TRUE.toString());
         properties.put(HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN,
                 "/*");
         ctx.registerService(Servlet.class, new FixedVaadinServlet(),
