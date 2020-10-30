@@ -10,7 +10,7 @@ import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPatte
 
 import com.vaadin.flow.server.VaadinServlet;
 
-@Component(immediate = true, service = Servlet.class)
+@Component(immediate = true, service = Servlet.class
 /*
  * Same like @VaadinMode
  *
@@ -18,6 +18,7 @@ import com.vaadin.flow.server.VaadinServlet;
  * HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX +
  * InitParameters.SERVLET_PARAMETER_COMPATIBILITY_MODE + "=false"})
  */
+)
 @VaadinMode
 @HttpWhiteboardServletAsyncSupported
 @HttpWhiteboardServletPattern("/*")
