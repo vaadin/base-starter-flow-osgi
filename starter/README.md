@@ -3,7 +3,7 @@
 Servlet initial parameters may be passed via `@Component` annotation parameter `property`, e.g.
 
 ```java
-@Component(immediate = true, service = Servlet.class, property = {
+@Component(immediate = false, service = Servlet.class, property = {
   HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX +
   InitParameters.SERVLET_PARAMETER_COMPATIBILITY_MODE + "=false"}) 
 ```
