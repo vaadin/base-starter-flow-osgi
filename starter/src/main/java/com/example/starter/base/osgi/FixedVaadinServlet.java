@@ -10,7 +10,7 @@ import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPatte
 
 import com.vaadin.flow.server.VaadinServlet;
 
-@Component(immediate = false, service = Servlet.class
+@Component(service = Servlet.class
 /*
  * Same like @VaadinMode
  *
