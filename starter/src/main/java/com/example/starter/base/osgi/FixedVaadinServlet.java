@@ -1,7 +1,6 @@
 package com.example.starter.base.osgi;
 
 import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
 import org.osgi.service.component.annotations.Component;
@@ -25,10 +24,7 @@ import com.vaadin.flow.server.VaadinServlet;
 public class FixedVaadinServlet extends VaadinServlet {
 
     @Override
-    public void init(ServletConfig servletConfig) throws ServletException {
-
-        super.init(servletConfig);
-
+    protected void servletInitialized() throws ServletException {
         getService().setClassLoader(getClass().getClassLoader());
     }
 
