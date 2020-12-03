@@ -2,6 +2,8 @@
 
 This project can be used as a starting point to create your own Vaadin Flow application bundle for OSGi.
 It has the necessary dependencies and files to help you get started.
+**This project has been revised for Vaadin 19 (GA in March 2021) which brings back OSGi support in npm mode.
+For now, it Vaadin OSGi support is only for Flow based views (Java UIs), but not for Fusion (TypeScript UIs).**
 
 The best way to use it is via [vaadin.com/start](https://vaadin.com/start) - you can get only the necessary parts and choose the package naming you want to use.
 
