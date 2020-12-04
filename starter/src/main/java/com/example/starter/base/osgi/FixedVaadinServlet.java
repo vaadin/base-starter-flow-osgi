@@ -15,7 +15,9 @@ import com.vaadin.flow.server.VaadinServlet;
  *
  * , property = {
  * HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX +
- * InitParameters.SERVLET_PARAMETER_COMPATIBILITY_MODE + "=false"})
+ * InitParameters.SERVLET_PARAMETER_COMPATIBILITY_MODE + "=false",
+ * HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX +
+ * InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE + "=false"})
  */
 )
 @VaadinMode
