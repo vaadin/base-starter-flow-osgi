@@ -5,7 +5,7 @@ It has the necessary dependencies and files to help you get started.
 **This project has been revised for Vaadin 19 (GA in March 2021) which brings back OSGi support in npm mode.
 For now, it Vaadin OSGi support is only for Flow based views (Java UIs), but not for Fusion (TypeScript UIs).**
 
-The best way to use it is via [vaadin.com/start](https://vaadin.com/start) - you can get only the necessary parts and choose the package naming you want to use.
+For more Vaadin usage samples, you can go to vaadin.com/start.
 
 To access it directly from github, clone the repository and import the project to the IDE of your choice as a Maven project. You need to have Java 8 or 11 installed.
 
@@ -50,4 +50,4 @@ along with Vaadin WAB. As a result:
 See Limitations section in the starter project [README.md](starter/README.md).
 
 :warning:
-At the moment, Vaadin 14 doesn't allow to modify frontend resources on the fly (webpack dev server is not available at runtime).
+At the moment, it is not possible to modify frontend resources on the fly (webpack dev server is not available at runtime). This means that for every frontend change, you have to rebuild the frontend bundle. ([Issue for devmode](https://github.com/vaadin/flow/issues/9108))
