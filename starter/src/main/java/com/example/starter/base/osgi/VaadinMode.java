@@ -25,13 +25,4 @@ public @interface VaadinMode {
      */
     boolean compatibilityMode() default false;
 
-    /**
-     * {@code productionMode} service property.
-     *
-     * @return the productionMode initial parameter value
-     * @see org.osgi.service.http.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX
-     * @see com.vaadin.flow.server.InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE
-     */
-    boolean productionMode() default false;
-
 }
