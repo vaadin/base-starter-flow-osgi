@@ -1,0 +1,13 @@
+-include: ../base.bndrun
+
+
+-runrequires: bnd.identity;id='com.example.osgi.base'
+
+
+-runrequires.flow: \
+	bnd.identity;version='6.0';id='com.vaadin.flow.client',\
+	bnd.identity;version='6.0';id='com.vaadin.flow.data',\
+	bnd.identity;version='6.0';id='com.vaadin.flow.html.components',\
+	bnd.identity;version='6.0';id='com.vaadin.flow.push',\
+	bnd.identity;version='6.0';id='com.vaadin.flow.osgi'
+
