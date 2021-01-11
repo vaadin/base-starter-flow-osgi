@@ -106,12 +106,6 @@
             <version>2.9.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.servicemix.specs</groupId>
-            <artifactId>org.apache.servicemix.specs.jaxb-api-2.2</artifactId>
-            <version>2.9.0</version>
-        </dependency>
-
         <!-- Those dependencies are need for OSGi container where this bundle 
             will be deployed. -->
 
