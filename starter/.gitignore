@@ -1,3 +1,7 @@
 /target/
 /node_modules/
 /bin/
+
+frontend/generated/*
+frontend/themes/**/*.generated.js
+
