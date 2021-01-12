@@ -21,6 +21,13 @@
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
             <artifactId>vaadin</artifactId>
+            <exclusions>
+                <!--  Exclude the Fusion artifact which may not be used in OSGi -->
+                <exclusion>
+                    <groupId>com.vaadin</groupId>
+                    <artifactId>fusion-endpoint</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
