@@ -8,6 +8,8 @@ import java.lang.annotation.Target;
 import org.osgi.service.component.annotations.ComponentPropertyType;
 import org.osgi.service.http.whiteboard.annotations.RequireHttpWhiteboard;
 
+import com.vaadin.flow.server.frontend.FrontendUtils;
+
 @ComponentPropertyType
 @Retention(RetentionPolicy.CLASS)
 @Target(ElementType.TYPE)
@@ -17,12 +19,11 @@ public @interface VaadinMode {
     String PREFIX_ = "servlet.init.";
 
     /**
-     * {@code compatibilityMode} service property.
+     * {@code frontendDirectory} service property.
      *
-     * @return the compatibilityMode initial parameter value
+     * @return the frontendDirectory initial parameter value
      * @see org.osgi.service.http.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX
-     * @see com.vaadin.flow.server.InitParameters.SERVLET_PARAMETER_COMPATIBILITY_MODE
      */
-    boolean compatibilityMode() default false;
+    String frontendDirectory() default "${project.basedir}/" + FrontendUtils.FRONTEND;
 
 }

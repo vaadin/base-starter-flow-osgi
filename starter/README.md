@@ -3,21 +3,16 @@
 Servlet initial parameters may be passed via `@Component` annotation parameter `property`, e.g.
 
 ```java
-@Component(immediate = false, service = Servlet.class, property = {
-  HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX +
-  InitParameters.SERVLET_PARAMETER_COMPATIBILITY_MODE + "=false"}) 
+@Component(immediate = false, service = Servlet.class, property = { "some.property = someValue" })
 ```
 or via some annotation like `VaadinMode` which is available in the example.
 
-Same way can be used to set production mode via the initial parameters.
-Another way to set these values is explicitly set them via the vaadin maven plugin configuration:
+Another way to set the property values is explicitly set them via the vaadin maven plugin configuration:
 
 ```xml
- <configuration>
-    <compatibilityMode>false</compatibilityMode>
-    <productionMode>false</productionMode>
+<configuration>
+    <frontendDirectory>${project.basedir}/myfrontend</frontendDirectory>
 </configuration>
-
 ```
 
 The values will be set in the token file (`flow-build-info.json`) which is read to 
