@@ -9,7 +9,18 @@ import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardServletPatte
 
 import com.vaadin.flow.server.VaadinServlet;
 
-@Component(service = Servlet.class)
+@Component(service = Servlet.class
+/*
+ * Same like @VaadinMode.
+ *
+ * Vaadin Servlet initial parameters can be configured as follows:
+ *
+ * , property = {
+ * HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX +
+ * InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE + "=false"})
+ */
+)
+@VaadinMode
 @HttpWhiteboardServletAsyncSupported
 @HttpWhiteboardServletPattern("/*")
 public class FixedVaadinServlet extends VaadinServlet {

@@ -1,17 +1,21 @@
 # Base Starter for Vaadin Flow and OSGi in NPM mode
 
-Servlet initial parameters may be passed via `@Component` annotation parameter `property`, e.g.
+Vaadin Servlet initial parameters may be passed via `@Component` annotation parameter `property`, e.g.
 
 ```java
-@Component(immediate = false, service = Servlet.class, property = { "some.property = someValue" })
+@Component(immediate = false, service = Servlet.class, property = {
+  HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX +
+  InitParameters.SERVLET_PARAMETER_PRODUCTION_MODE + "=false"})
 ```
+or via some annotation like `VaadinMode` which is available in the example.
 
 Another way to set the property values is explicitly set them via the vaadin maven plugin configuration:
 
 ```xml
-<configuration>
-    <frontendDirectory>${project.basedir}/myfrontend</frontendDirectory>
+ <configuration>
+    <productionMode>false</productionMode>
 </configuration>
+
 ```
 
 The values will be set in the token file (`flow-build-info.json`) which is read to 
@@ -28,7 +32,9 @@ provided in the project (see `FixedVaadinServlet`).
 
 Here is a list of things which are not currently supported:
 
-- NPM dev mode: it's only possible to run Vaadin web application in production mode
+- NPM dev mode: it's possible to run Vaadin web application in both production 
+and dev mode, but dev mode can be used only with precompiled frontend
+ resources (via vaadin-maven-plugin) and it's not possible to use a dev server (Webpack) within OSGi.
 - it's not possible to use OSGi declarative services with Vaadin components: 
 you may not inject a service declaratively in Vaadin classes (using annotations) 
 just because UI objects are not managed by OSGi. But you still may call OSGi services programmatically of course.
