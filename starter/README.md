@@ -5,7 +5,6 @@ Servlet initial parameters may be passed via `@Component` annotation parameter `
 ```java
 @Component(immediate = false, service = Servlet.class, property = { "some.property = someValue" })
 ```
-or via some annotation like `VaadinMode` which is available in the example.
 
 Another way to set the property values is explicitly set them via the vaadin maven plugin configuration:
 
