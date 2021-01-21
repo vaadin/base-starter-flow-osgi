@@ -9,7 +9,7 @@ Vaadin Servlet initial parameters may be passed via `@Component` annotation para
 ```
 or via some annotation like `VaadinMode` which is available in the example.
 
-Another way to set the property values is explicitly set them via the vaadin maven plugin configuration:
+Another way to set the `productionMode` value is explicitly set it via the Vaadin maven plugin configuration:
 
 ```xml
  <configuration>
@@ -20,6 +20,12 @@ Another way to set the property values is explicitly set them via the vaadin mav
 
 The values will be set in the token file (`flow-build-info.json`) which is read to 
 create a deployment configuration for a Vaadin servlet.
+
+Note: Not any property can be set via Vaadin maven plugin configuration.
+There is a limited number of Maven configuration parameters which are reflected to the same Vaadin Servlet init property name.
+`productionMode` is mapped exactly as is: the same name is init parameter and the same maven config parameter can be used in the pom.xml.
+There are config Maven parameters which have different names comparing to init parameters.
+And there are a lot of Vaadin Servlet init parameters (see `com.vaadin.flow.server.InitParameters`) and only few Maven configuration parameters (see `com.vaadin.flow.plugin.maven.FlowModeAbstractMojo`).
 
 ## Vaadin Servlet registration in OSGi
 
