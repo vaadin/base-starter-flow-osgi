@@ -1,21 +1,19 @@
 package com.example.starter.base.osgi;
 
-import com.vaadin.flow.function.DeploymentConfiguration;
-import java.util.Hashtable;
-
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+
+import java.util.Hashtable;
+import java.util.Properties;
 
 import org.osgi.framework.BundleContext;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 
+import com.vaadin.flow.function.DeploymentConfiguration;
 import com.vaadin.flow.server.VaadinServlet;
-import com.vaadin.flow.server.VaadinServletConfiguration;
-import java.util.Properties;
-import javax.servlet.annotation.WebServlet;
 
 /**
  * Register a VaadinServlet via HTTP Whiteboard specification
@@ -36,12 +34,14 @@ public class VaadinServletRegistration {
         }
 
         @Override
-        protected DeploymentConfiguration createDeploymentConfiguration(Properties initParameters) {
+        protected DeploymentConfiguration createDeploymentConfiguration(
+                Properties initParameters) {
             // npm mode is not currently supported
-            initParameters.setProperty("compatibilityMode", "true");
+            initParameters.setProperty("compatibilityMode",
+                    Boolean.TRUE.toString());
             return super.createDeploymentConfiguration(initParameters);
         }
-        
+
     }
 
     @Activate
@@ -49,7 +49,7 @@ public class VaadinServletRegistration {
         Hashtable<String, Object> properties = new Hashtable<>();
         properties.put(
                 HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_ASYNC_SUPPORTED,
-                true);
+                Boolean.TRUE.toString());
         properties.put(HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN,
                 "/*");
         ctx.registerService(Servlet.class, new FixedVaadinServlet(),

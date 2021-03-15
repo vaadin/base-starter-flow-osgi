@@ -13,7 +13,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <vaadin.version>14.1.5</vaadin.version>
+        <vaadin.version>14.4.9</vaadin.version>
 
         <felix.version>6.0.0</felix.version>
         <felix.distribution>https://repo1.maven.org/maven2/org/apache/felix/org.apache.felix.main.distribution/${felix.version}/org.apache.felix.main.distribution-${felix.version}.zip</felix.distribution>
@@ -279,6 +279,13 @@
                     <groupId>org.apache.felix</groupId>
                     <artifactId>org.apache.felix.scr</artifactId>
                     <version>2.1.10</version>
+                    <scope>provided</scope>
+                </dependency>
+
+                <dependency>
+                    <groupId>org.osgi</groupId>
+                    <artifactId>org.osgi.service.cm</artifactId>
+                    <version>1.5.0</version>
                     <scope>provided</scope>
                 </dependency>
 
