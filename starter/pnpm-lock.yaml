@@ -16,7 +16,7 @@ dependencies:
   '@vaadin/vaadin-confirm-dialog': 2.0.0
   '@vaadin/vaadin-context-menu': 5.0.0
   '@vaadin/vaadin-cookie-consent': 2.0.0
-  '@vaadin/vaadin-core-shrinkwrap': 19.0.1
+  '@vaadin/vaadin-core-shrinkwrap': 19.0.2
   '@vaadin/vaadin-crud': 2.0.1
   '@vaadin/vaadin-custom-field': 2.0.0
   '@vaadin/vaadin-date-picker': 5.0.0
@@ -39,7 +39,7 @@ dependencies:
   '@vaadin/vaadin-radio-button': 1.5.1
   '@vaadin/vaadin-rich-text-editor': 2.0.0
   '@vaadin/vaadin-select': 3.0.0
-  '@vaadin/vaadin-shrinkwrap': 19.0.1
+  '@vaadin/vaadin-shrinkwrap': 19.0.2
   '@vaadin/vaadin-split-layout': 4.3.0
   '@vaadin/vaadin-tabs': 4.0.0
   '@vaadin/vaadin-text-field': 3.0.2
@@ -1398,7 +1398,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-sT5EaPMMBHMjxjFCMZccgKLt4jVx0c3LOxlJT4fQ4N1quWA5sHfgKi4ih6Keq2AAKkXffMzdWkn7VyLKeP9RZw==
-  /@vaadin/vaadin-core-shrinkwrap/19.0.1:
+  /@vaadin/vaadin-core-shrinkwrap/19.0.2:
     dependencies:
       '@polymer/iron-a11y-announcer': 3.0.2
       '@polymer/iron-a11y-keys-behavior': 3.0.1
@@ -1454,7 +1454,7 @@ packages:
       '@webcomponents/shadycss': 1.9.6
     dev: false
     resolution:
-      integrity: sha512-oaKRexbHcI/bfDTrHCnWzocBLeQ0fAoMx2R+mbswRwnv7Izdh09twDsDVh2nAByGggE7qa2XBjsRnEj7cTn+Jg==
+      integrity: sha512-Z/z2o13yrfTLrV1W+XfDrfPzZbx7uJ3PTrmdCkoo7fwe6CNW9Naa6gk4Fn96JUXbDX3628K0CGKgFhPsVR3bgw==
   /@vaadin/vaadin-crud/2.0.1:
     dependencies:
       '@polymer/iron-media-query': 3.0.1
@@ -1757,7 +1757,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-5euXZ8cCEMDbby8iZtce+z5zsg+AFc9SN5OJSBrLNDknDWcx8Yc5JNH4fR8bLWhhMr0iOYM2BFDg6NkjzDC/Tg==
-  /@vaadin/vaadin-shrinkwrap/19.0.1:
+  /@vaadin/vaadin-shrinkwrap/19.0.2:
     dependencies:
       '@polymer/iron-a11y-announcer': 3.0.2
       '@polymer/iron-a11y-keys-behavior': 3.0.1
@@ -1820,7 +1820,7 @@ packages:
       '@webcomponents/shadycss': 1.9.6
     dev: false
     resolution:
-      integrity: sha512-kNjwlU8zRxdvJfgSyNrnrLKXYYeVaJ+4vEKwjo23mStIf7lFoAoMqXwQduykoG515BWyQMKtGBuEs/F1NstfUQ==
+      integrity: sha512-LwpDQXOtPC9kZh5Bs1Hc9LDpL7Ze5gRypYX3c0sEV80aJKDkgqkYTqnZWau7ULOc/o8jDHtpemgNoijnucGwtQ==
   /@vaadin/vaadin-split-layout/4.3.0:
     dependencies:
       '@polymer/iron-resizable-behavior': 3.0.1
@@ -2919,17 +2919,17 @@ packages:
       integrity: sha512-Z942RysHXmJrhqk88FmKBVq/v5tqmSkDz7p54G/MGyjMnCFFnC79XWNbg+Vta8W6Wb2qtSZTSxIGkJrRpCFEiA==
   /browserslist/3.2.8:
     dependencies:
-      caniuse-lite: 1.0.30001202
-      electron-to-chromium: 1.3.689
+      caniuse-lite: 1.0.30001203
+      electron-to-chromium: 1.3.692
     dev: true
     hasBin: true
     resolution:
       integrity: sha512-WHVocJYavUwVgVViC0ORikPHQquXwVh939TaelZ4WDqpWgTX/FsGhl/+P4qBUAGcRvtOgDgC+xftNWWp2RUTAQ==
   /browserslist/4.16.3:
     dependencies:
-      caniuse-lite: 1.0.30001202
+      caniuse-lite: 1.0.30001203
       colorette: 1.2.2
-      electron-to-chromium: 1.3.689
+      electron-to-chromium: 1.3.692
       escalade: 3.1.1
       node-releases: 1.1.71
     dev: true
@@ -3073,10 +3073,10 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-c7wVvbw3f37nuobQNtgsgG9POC9qMbNuMQmTCqZv23b6MIz0fcYpBiOlv9gEN/hdLdnZTDQhg6e9Dq5M1vKvfg==
-  /caniuse-lite/1.0.30001202:
+  /caniuse-lite/1.0.30001203:
     dev: true
     resolution:
-      integrity: sha512-ZcijQNqrcF8JNLjzvEiXqX4JUYxoZa7Pvcsd9UD8Kz4TvhTonOSNRsK+qtvpVL4l6+T1Rh4LFtLfnNWg6BGWCQ==
+      integrity: sha512-/I9tvnzU/PHMH7wBPrfDMSuecDeUKerjCPX7D0xBbaJZPxoT9m+yYxt0zCTkcijCkjTdim3H56Zm0i5Adxch4w==
   /chalk/1.1.3:
     dependencies:
       ansi-styles: 2.2.1
@@ -3618,10 +3618,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-920GQ1LN9Docts5hnE7jqUdd4gg=
-  /detect-node/2.0.4:
+  /detect-node/2.0.5:
     dev: true
     resolution:
-      integrity: sha512-ZIzRpLJrOj7jjP2miAtgqIfmzbxa4ZOr5jJc601zklsfEx9oTzmmj2nVpIPRpNlRTIh8lc1kyViIY7BWSGNmKw==
+      integrity: sha512-qi86tE6hRcFHy8jI1m2VG+LaPUR1LhqDa5G8tVjuUXmOrpuAgqsA1pN0+ldgr3aKUH+QLI9hCY/OcRYisERejw==
   /diffie-hellman/5.0.3:
     dependencies:
       bn.js: 4.12.0
@@ -3715,10 +3715,10 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-7vmuyh5+kuUyJKePhQfRQBhXV5Ce+RnaeeQArKu1EAMpL3WbgMt5WG6uQZpEVvYSSsxMXRKOewtDk9RaTKXRlA==
-  /electron-to-chromium/1.3.689:
+  /electron-to-chromium/1.3.692:
     dev: true
     resolution:
-      integrity: sha512-WCn+ZaU3V8WttlLNSOGOAlR2XpxibGre7slwGrYBB6oTjYPgP29LNDGG6wLvLTMseLdE+G1vno7PfY7JyDV48g==
+      integrity: sha512-Ix+zDUAXWZuUzqKdhkgN5dP7ZM+IwMG4yAGFGDLpGJP/3vNEEwuHG1LIhtXUfW0FFV0j38t5PUv2n/3MFSRviQ==
   /elliptic/6.5.4:
     dependencies:
       bn.js: 4.12.0
@@ -3902,14 +3902,14 @@ packages:
       node: '>=0.8.x'
     resolution:
       integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
-  /eventsource/1.0.7:
+  /eventsource/1.1.0:
     dependencies:
       original: 1.0.2
     dev: true
     engines:
       node: '>=0.12.0'
     resolution:
-      integrity: sha512-4Ln17+vVT0k8aWq+t/bF5arcS3EpT9gYtW66EPacdj/mAFevznsnyoHLPy2BA8gbIQeIHoPsvwmfBftfcG//BQ==
+      integrity: sha512-VSJjT5oCNrFvCS6igjzPAt5hBzQ2qPBFIbJ03zLI9SE0mxwZpMw6BfJrbFHm1a141AavMEB8JHmBhWAd66PfCg==
   /evp_bytestokey/1.0.3:
     dependencies:
       md5.js: 1.3.5
@@ -6805,7 +6805,7 @@ packages:
   /sockjs-client/1.4.0:
     dependencies:
       debug: 3.2.7
-      eventsource: 1.0.7
+      eventsource: 1.1.0
       faye-websocket: 0.11.3
       inherits: 2.0.4
       json3: 3.3.3
@@ -6877,7 +6877,7 @@ packages:
   /spdy-transport/3.0.0_supports-color@6.1.0:
     dependencies:
       debug: 4.3.1_supports-color@6.1.0
-      detect-node: 2.0.4
+      detect-node: 2.0.5
       hpack.js: 2.1.6
       obuf: 1.1.2
       readable-stream: 3.6.0
@@ -7943,7 +7943,7 @@ specifiers:
   '@vaadin/vaadin-confirm-dialog': 2.0.0
   '@vaadin/vaadin-context-menu': 5.0.0
   '@vaadin/vaadin-cookie-consent': 2.0.0
-  '@vaadin/vaadin-core-shrinkwrap': 19.0.1
+  '@vaadin/vaadin-core-shrinkwrap': 19.0.2
   '@vaadin/vaadin-crud': 2.0.1
   '@vaadin/vaadin-custom-field': 2.0.0
   '@vaadin/vaadin-date-picker': 5.0.0
@@ -7966,7 +7966,7 @@ specifiers:
   '@vaadin/vaadin-radio-button': 1.5.1
   '@vaadin/vaadin-rich-text-editor': 2.0.0
   '@vaadin/vaadin-select': 3.0.0
-  '@vaadin/vaadin-shrinkwrap': 19.0.1
+  '@vaadin/vaadin-shrinkwrap': 19.0.2
   '@vaadin/vaadin-split-layout': 4.3.0
   '@vaadin/vaadin-tabs': 4.0.0
   '@vaadin/vaadin-text-field': 3.0.2
