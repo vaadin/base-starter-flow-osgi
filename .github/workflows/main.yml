@@ -8,10 +8,12 @@ on:
   push:
     branches:
       - master
+      - v14
       - v19
   pull_request:
     branches:
       - master
+      - v14
       - v19
 
   # Allows you to run this workflow manually from the Actions tab
