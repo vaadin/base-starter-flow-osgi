@@ -42,14 +42,14 @@ const clientServiceWorkerEntryPoint = path.resolve(__dirname, 'target/sw');
 // public path for resources, must match Flow VAADIN_BUILD
 const VAADIN = 'VAADIN';
 const build = 'build';
-// public path for resources, must match the request used in flow to get the
-const config = '../config';
+// public path for resources, must match the request used in flow to get the /build/stats.json file
+const config = 'config';
 const outputFolder = mavenOutputFolderForFlowBundledFiles;
 const indexHtmlPath = 'index.html';
 // folder for outputting vaadin-bundle and other fragments
 const buildFolder = path.resolve(outputFolder, VAADIN, build);
 // folder for outputting stats.json
-const confFolder = path.resolve(mavenOutputFolderForResourceFiles, 'config');
+const confFolder = path.resolve(mavenOutputFolderForResourceFiles, config);
 const serviceWorkerPath = 'sw.js';
 // file which is used by flow to read templates for server `@Id` binding
 const statsFile = `${confFolder}/stats.json`;
@@ -74,9 +74,6 @@ const enableTypeScript = fs.existsSync(tsconfigJsonFile);
 // Target flow-fronted auto generated to be the actual target folder
 const flowFrontendFolder = path.resolve(__dirname, 'target/flow-frontend');
 
-// make sure that build folder exists before outputting anything
-const mkdirp = require('mkdirp');
-
 const devMode = process.argv.find(v => v.indexOf('webpack-dev-server') >= 0);
 if (!devMode) {
   // make sure that build folder exists before outputting anything
@@ -89,10 +86,8 @@ let stats;
 
 // Open a connection with the Java dev-mode handler in order to finish
 // webpack-dev-mode when it exits or crashes.
-const watchDogPrefix = '--watchDogPort=';
-let watchDogPort = devMode && process.argv.find(v => v.indexOf(watchDogPrefix) >= 0);
+const watchDogPort = devMode && process.env.watchDogPort;
 if (watchDogPort) {
-  watchDogPort = watchDogPort.substr(watchDogPrefix.length);
   const runWatchDog = () => {
     const client = new require('net').Socket();
     client.setEncoding('utf8');
@@ -131,22 +126,22 @@ let appShellManifestEntry = undefined;
 const swManifestTransform = (manifestEntries) => {
   const warnings = [];
   const manifest = manifestEntries;
-
-  // `index.html` is a special case: in contrast with the JS bundles produced by webpack
-  // it's not served as-is directly from the webpack output at `/index.html`.
-  // It goes through IndexHtmlRequestHandler and is served at `/`.
-  //
-  // TODO: calculate the revision based on the IndexHtmlRequestHandler-processed content
-  // of the index.html file
-  const indexEntryIdx = manifest.findIndex(entry => entry.url === 'index.html');
-  if (indexEntryIdx !== -1) {
-    manifest[indexEntryIdx].url = appShellUrl;
-    appShellManifestEntry = manifest[indexEntryIdx];
-  } else {
-    // Index entry is only emitted on first compilation. Make sure it is cached also for incremental builds
-    manifest.push(appShellManifestEntry);
+  if (useClientSideIndexFileForBootstrapping) {
+    // `index.html` is a special case: in contrast with the JS bundles produced by webpack
+    // it's not served as-is directly from the webpack output at `/index.html`.
+    // It goes through IndexHtmlRequestHandler and is served at `/`.
+    //
+    // TODO: calculate the revision based on the IndexHtmlRequestHandler-processed content
+    // of the index.html file
+    const indexEntryIdx = manifest.findIndex(entry => entry.url === 'index.html');
+    if (indexEntryIdx !== -1) {
+      manifest[indexEntryIdx].url = appShellUrl;
+      appShellManifestEntry = manifest[indexEntryIdx];
+    } else {
+      // Index entry is only emitted on first compilation. Make sure it is cached also for incremental builds
+      manifest.push(appShellManifestEntry);
+    }
   }
-
   return { manifest, warnings };
 };
 
@@ -192,8 +187,9 @@ if (devMode) {
   // generated folder
   themeName = extractThemeName(frontendGeneratedFolder);
   const parentThemePaths = findParentThemes(themeName, themeOptions);
-  const currentThemeFolders = projectStaticAssetsFolders
-    .map((folder) => path.resolve(folder, "themes", themeName));
+  const currentThemeFolders = [...projectStaticAssetsFolders
+    .map((folder) => path.resolve(folder, "themes", themeName)),
+    path.resolve(flowFrontendThemesFolder, themeName)];
   // Watch the components folders for component styles update in both
   // current theme and parent themes. Other folders or CSS files except
   // 'styles.css' should be referenced from `styles.css` anyway, so no need
@@ -332,7 +328,7 @@ module.exports = {
 
     ...(devMode && themeName ? [new ExtraWatchWebpackPlugin({
       files: [],
-      dirs: [...themeWatchFolders]
+      dirs: themeWatchFolders
     }), new ThemeLiveReloadPlugin(processThemeResourcesCallback)] : []),
 
     new StatsPlugin({
