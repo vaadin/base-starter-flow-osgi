@@ -9,14 +9,18 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 const { DefinePlugin } = require('webpack');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 // Flow plugins
-const StatsPlugin = require('@vaadin/stats-plugin');
+const BuildStatusPlugin = require('@vaadin/build-status-plugin');
 const ThemeLiveReloadPlugin = require('@vaadin/theme-live-reload-plugin');
-const { ApplicationThemePlugin, processThemeResources, extractThemeName, findParentThemes } = require('@vaadin/application-theme-plugin');
+const {
+  ApplicationThemePlugin,
+  processThemeResources,
+  extractThemeName,
+  findParentThemes
+} = require('@vaadin/application-theme-plugin');
 
 const path = require('path');
 
@@ -32,12 +36,10 @@ const fileNameOfTheFlowGeneratedMainEntryPoint = path.resolve(__dirname, 'target
 const mavenOutputFolderForFlowBundledFiles = path.resolve(__dirname, 'target/classes/META-INF/VAADIN/webapp');
 const mavenOutputFolderForResourceFiles = path.resolve(__dirname, 'target/classes/META-INF/VAADIN');
 const useClientSideIndexFileForBootstrapping = true;
-const clientSideIndexHTML = path.resolve(__dirname, 'target/index.html');
+const clientSideIndexHTML = './index.html';
 const clientSideIndexEntryPoint = path.resolve(__dirname, 'frontend', 'generated/', 'vaadin.ts');;
-const devmodeGizmoJS = path.resolve(__dirname, 'target/flow-frontend/VaadinDevmodeGizmo.js');
 const pwaEnabled = true;
-const offlinePathEnabled = false;
-const offlinePath = '';
+const offlinePath = '.';
 const clientServiceWorkerEntryPoint = path.resolve(__dirname, 'target/sw');
 // public path for resources, must match Flow VAADIN_BUILD
 const VAADIN = 'VAADIN';
@@ -64,9 +66,7 @@ const projectStaticAssetsFolders = [
 const projectStaticAssetsOutputFolder = path.resolve(__dirname, 'target/classes/META-INF/VAADIN/webapp/VAADIN/static');
 
 // Folders in the project which can contain application themes
-const themeProjectFolders = projectStaticAssetsFolders.map((folder) =>
-  path.resolve(folder, 'themes')
-);
+const themeProjectFolders = projectStaticAssetsFolders.map((folder) => path.resolve(folder, 'themes'));
 
 const tsconfigJsonFile = path.resolve(__dirname, 'tsconfig.json');
 const enableTypeScript = fs.existsSync(tsconfigJsonFile);
@@ -74,7 +74,8 @@ const enableTypeScript = fs.existsSync(tsconfigJsonFile);
 // Target flow-fronted auto generated to be the actual target folder
 const flowFrontendFolder = path.resolve(__dirname, 'target/flow-frontend');
 
-const devMode = process.argv.find(v => v.indexOf('webpack-dev-server') >= 0);
+const statsSetViaCLI = process.argv.find((v) => v.indexOf('--stats') >= 0);
+const devMode = process.argv.find((v) => v.indexOf('webpack-dev-server') >= 0);
 if (!devMode) {
   // make sure that build folder exists before outputting anything
   const mkdirp = require('mkdirp');
@@ -92,7 +93,7 @@ if (watchDogPort) {
     const client = new require('net').Socket();
     client.setEncoding('utf8');
     client.on('error', function () {
-      console.log("Watchdog connection error. Terminating webpack process...");
+      console.log('Watchdog connection error. Terminating webpack process...');
       client.destroy();
       process.exit(0);
     });
@@ -102,7 +103,7 @@ if (watchDogPort) {
     });
 
     client.connect(watchDogPort, 'localhost');
-  }
+  };
   runWatchDog();
 }
 
@@ -112,7 +113,11 @@ if (useClientSideIndexFileForBootstrapping) {
   webPackEntries.bundle = clientSideIndexEntryPoint;
   const dirName = path.dirname(fileNameOfTheFlowGeneratedMainEntryPoint);
   const baseName = path.basename(fileNameOfTheFlowGeneratedMainEntryPoint, '.js');
-  if (fs.readdirSync(dirName).filter(fileName => !fileName.startsWith(baseName) && fileName.endsWith(".js") && fileName.includes("-")).length) {
+  if (
+    fs
+      .readdirSync(dirName)
+      .filter((fileName) => !fileName.startsWith(baseName) && fileName.endsWith('.js') && fileName.includes('-')).length
+  ) {
     // if there are vaadin exported views, add a second entry
     webPackEntries.export = fileNameOfTheFlowGeneratedMainEntryPoint;
   }
@@ -133,7 +138,7 @@ const swManifestTransform = (manifestEntries) => {
     //
     // TODO: calculate the revision based on the IndexHtmlRequestHandler-processed content
     // of the index.html file
-    const indexEntryIdx = manifest.findIndex(entry => entry.url === 'index.html');
+    const indexEntryIdx = manifest.findIndex((entry) => entry.url === 'index.html');
     if (indexEntryIdx !== -1) {
       manifest[indexEntryIdx].url = appShellUrl;
       appShellManifestEntry = manifest[indexEntryIdx];
@@ -145,7 +150,7 @@ const swManifestTransform = (manifestEntries) => {
   return { manifest, warnings };
 };
 
-const createServiceWorkerPlugin = function() {
+const createServiceWorkerPlugin = function () {
   return new InjectManifest({
     swSrc: clientServiceWorkerEntryPoint,
     swDest: serviceWorkerPath,
@@ -155,20 +160,15 @@ const createServiceWorkerPlugin = function() {
     include: [
       (chunk) => {
         return true;
-      },
+      }
     ],
     webpackCompilationPlugins: [
       new DefinePlugin({
-        OFFLINE_PATH_ENABLED: offlinePathEnabled,
         OFFLINE_PATH: JSON.stringify(offlinePath)
-      }),
-    ],
+      })
+    ]
   });
-}
-
-if (devMode) {
-  webPackEntries.devmodeGizmo = devmodeGizmoJS;
-}
+};
 
 const flowFrontendThemesFolder = path.resolve(flowFrontendFolder, 'themes');
 const themeOptions = {
@@ -187,15 +187,17 @@ if (devMode) {
   // generated folder
   themeName = extractThemeName(frontendGeneratedFolder);
   const parentThemePaths = findParentThemes(themeName, themeOptions);
-  const currentThemeFolders = [...projectStaticAssetsFolders
-    .map((folder) => path.resolve(folder, "themes", themeName)),
-    path.resolve(flowFrontendThemesFolder, themeName)];
+  const currentThemeFolders = [
+    ...projectStaticAssetsFolders.map((folder) => path.resolve(folder, 'themes', themeName)),
+    path.resolve(flowFrontendThemesFolder, themeName)
+  ];
   // Watch the components folders for component styles update in both
   // current theme and parent themes. Other folders or CSS files except
   // 'styles.css' should be referenced from `styles.css` anyway, so no need
   // to watch them.
-  themeWatchFolders = [...currentThemeFolders, ...parentThemePaths]
-    .map((themeFolder) => path.resolve(themeFolder, "components"));
+  themeWatchFolders = [...currentThemeFolders, ...parentThemePaths].map((themeFolder) =>
+    path.resolve(themeFolder, 'components')
+  );
 }
 
 const processThemeResourcesCallback = (logger) => processThemeResources(themeOptions, logger);
@@ -218,34 +220,25 @@ module.exports = {
 
   resolve: {
     // Search for import 'x/y' inside these folders, used at least for importing an application theme
-    modules: [
-      'node_modules',
-      flowFrontendFolder,
-      ...projectStaticAssetsFolders,
-    ],
-    extensions: [
-      enableTypeScript && '.ts',
-      '.js'
-    ].filter(Boolean),
+    modules: ['node_modules', flowFrontendFolder, ...projectStaticAssetsFolders],
+    extensions: [enableTypeScript && '.ts', '.js'].filter(Boolean),
     alias: {
       Frontend: frontendFolder
     }
   },
 
+  stats: devMode && !statsSetViaCLI ? 'errors-warnings' : 'normal', // Unclutter output in dev mode
+
   devServer: {
-    // webpack-dev-server serves ./ ,  webpack-generated,  and java webapp
-    contentBase: [outputFolder, 'src/main/webapp'],
-    after: function(app, server) {
-      app.get(`/stats.json`, function(req, res) {
-        res.json(stats);
-      });
-      app.get(`/stats.hash`, function(req, res) {
-        res.json(stats.hash.toString());
-      });
-      app.get(`/assetsByChunkName`, function(req, res) {
+    hot: false, // disable HMR
+    client: false, // disable wds client as we handle reloads and errors better
+    // webpack-dev-server serves ./, webpack-generated, and java webapp
+    static: [outputFolder, path.resolve(__dirname, 'src', 'main', 'webapp')],
+    onAfterSetupMiddleware: function (devServer) {
+      devServer.app.get(`/assetsByChunkName`, function (req, res) {
         res.json(stats.assetsByChunkName);
       });
-      app.get(`/stop`, function(req, res) {
+      devServer.app.get(`/stop`, function (req, res) {
         // eslint-disable-next-line no-console
         console.log("Stopped 'webpack-dev-server'");
         process.exit(0);
@@ -257,10 +250,10 @@ module.exports = {
     rules: [
       enableTypeScript && {
         test: /\.ts$/,
-        loader: 'ts-loader',
+        loader: 'esbuild-loader',
         options: {
-          transpileOnly: true,
-          experimentalWatchApi: true
+          loader: 'ts',
+          target: 'es2019'
         }
       },
       {
@@ -273,7 +266,7 @@ module.exports = {
             }
           },
           {
-            loader: "extract-loader"
+            loader: 'extract-loader'
           },
           {
             loader: 'css-loader',
@@ -286,7 +279,7 @@ module.exports = {
               },
               // use theme-loader to also handle any imports in css files
               importLoaders: 1
-            },
+            }
           },
           {
             // theme-loader will change any url starting with './' to start with 'VAADIN/static' instead
@@ -296,27 +289,29 @@ module.exports = {
               devMode: devMode
             }
           }
-        ],
+        ]
       },
       {
         // File-loader only copies files used as imports in .js files or handled by css-loader
         test: /\.(png|gif|jpg|jpeg|svg|eot|woff|woff2|otf|ttf)$/,
-        use: [{
-          loader: 'file-loader',
-          options: {
-            outputPath: 'VAADIN/static/',
-            name(resourcePath, resourceQuery) {
-              if (resourcePath.match(/(\\|\/)node_modules\1/)) {
-                return /(\\|\/)node_modules\1(?!.*node_modules)([\S]+)/.exec(resourcePath)[2].replace(/\\/g, "/");
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: 'VAADIN/static/',
+              name(resourcePath, resourceQuery) {
+                if (resourcePath.match(/(\\|\/)node_modules\1/)) {
+                  return /(\\|\/)node_modules\1(?!.*node_modules)([\S]+)/.exec(resourcePath)[2].replace(/\\/g, '/');
+                }
+                if (resourcePath.match(/(\\|\/)flow-frontend\1/)) {
+                  return /(\\|\/)flow-frontend\1(?!.*flow-frontend)([\S]+)/.exec(resourcePath)[2].replace(/\\/g, '/');
+                }
+                return '[path][name].[ext]';
               }
-              if (resourcePath.match(/(\\|\/)flow-frontend\1/)) {
-                return /(\\|\/)flow-frontend\1(?!.*flow-frontend)([\S]+)/.exec(resourcePath)[2].replace(/\\/g, "/");
-              }
-              return '[path][name].[ext]';
             }
           }
-        }],
-      },
+        ]
+      }
     ].filter(Boolean)
   },
   performance: {
@@ -324,32 +319,43 @@ module.exports = {
     maxAssetSize: 2097152 // 2MB
   },
   plugins: [
-    // Generate manifest.json file
-    new WebpackManifestPlugin(),
-
     new ApplicationThemePlugin(themeOptions),
 
-    ...(devMode && themeName ? [new ExtraWatchWebpackPlugin({
-      files: [],
-      dirs: themeWatchFolders
-    }), new ThemeLiveReloadPlugin(processThemeResourcesCallback)] : []),
+    ...(devMode && themeName
+      ? [
+          new ExtraWatchWebpackPlugin({
+            files: [],
+            dirs: themeWatchFolders
+          }),
+          new ThemeLiveReloadPlugin(processThemeResourcesCallback)
+        ]
+      : []),
 
-    new StatsPlugin({
-      devMode: devMode,
-      statsFile: statsFile,
-      setResults: function (statsFile) {
-        stats = statsFile;
-      }
-    }),
+    function (compiler) {
+      // V14 bootstrapping needs the bundle names
+      compiler.hooks.afterEmit.tapAsync("FlowStatsHelper", (compilation, done) => {
+        let miniStats = {
+          assetsByChunkName: compilation.getStats().toJson().assetsByChunkName
+        };
+        if (!devMode) {
+          fs.writeFile(statsFile, JSON.stringify(miniStats, null, 1),
+            () => done());
+        } else {
+          stats = miniStats;
+          done();
+        }
+      });
+    },
 
     // Includes JS output bundles into "index.html"
-    useClientSideIndexFileForBootstrapping && new HtmlWebpackPlugin({
-      template: clientSideIndexHTML,
-      filename: indexHtmlPath,
-      inject: 'head',
-      scriptLoading: 'defer',
-      chunks: ['bundle', ...(devMode ? ['devmodeGizmo'] : [])]
-    }),
+    useClientSideIndexFileForBootstrapping &&
+      new HtmlWebpackPlugin({
+        template: clientSideIndexHTML,
+        filename: indexHtmlPath,
+        inject: 'head',
+        scriptLoading: 'defer',
+        chunks: ['bundle']
+      }),
 
     // Service worker for offline
     pwaEnabled && createServiceWorkerPlugin(),
@@ -357,10 +363,13 @@ module.exports = {
     // Generate compressed bundles when not devMode
     !devMode && new CompressionPlugin(),
 
-    enableTypeScript && new ForkTsCheckerWebpackPlugin({
-      typescript: {
-        configFile: tsconfigJsonFile
-      }
-    }),
+    enableTypeScript &&
+      new ForkTsCheckerWebpackPlugin({
+        typescript: {
+          configFile: tsconfigJsonFile
+        }
+      }),
+
+    new BuildStatusPlugin()
   ].filter(Boolean)
 };
