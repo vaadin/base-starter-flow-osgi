@@ -15,6 +15,7 @@
 
     <properties>
         <bnd.version>5.2.0</bnd.version>
+        <spifly.version>1.3.4</spifly.version>
         <extra.bundles.dir>${project.build.directory}/extra-bundles</extra.bundles.dir>        
     </properties>
 
@@ -34,7 +35,7 @@
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.framework</artifactId>
-            <version>7.0.0</version>
+            <version>7.0.3</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -118,28 +119,28 @@
         <dependency>
             <groupId>org.apache.aries.spifly</groupId>
             <artifactId>org.apache.aries.spifly.static.bundle</artifactId>
-            <version>1.3.2</version>
+            <version>${spifly.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.aries.spifly</groupId>
             <artifactId>org.apache.aries.spifly.static.tool</artifactId>
-            <version>1.3.2</version>
+            <version>${spifly.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.aries.spifly</groupId>
             <artifactId>org.apache.aries.spifly.core-internal</artifactId>
-            <version>1.3.2</version>
+            <version>${spifly.version}</version>
             <scope>runtime</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.aries.spifly</groupId>
             <artifactId>org.apache.aries.spifly.weaver-internal</artifactId>
-            <version>1.3.2</version>
+            <version>${spifly.version}</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -153,7 +154,7 @@
         <dependency>
             <groupId>org.apache.aries.spifly</groupId>
             <artifactId>org.apache.aries.spifly.dynamic.bundle</artifactId>
-            <version>1.3.2</version>
+            <version>${spifly.version}</version>
             <scope>runtime</scope>
         </dependency>
 
