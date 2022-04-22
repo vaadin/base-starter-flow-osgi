@@ -29,6 +29,7 @@ const useClientSideIndexFileForBootstrapping = true;
 const clientSideIndexHTML = './index.html';
 const clientSideIndexEntryPoint = path.resolve(__dirname, 'frontend', 'generated/', 'vaadin.ts');;
 const pwaEnabled = true;
+const offlineEnabled = true;
 const offlinePath = '.';
 const clientServiceWorkerEntryPoint = path.resolve(__dirname, 'target/sw');
 // public path for resources, must match Flow VAADIN_BUILD
@@ -91,12 +92,13 @@ let stats;
 // Open a connection with the Java dev-mode handler in order to finish
 // webpack-dev-mode when it exits or crashes.
 const watchDogPort = devMode && process.env.watchDogPort;
+const watchDogHost = (devMode && process.env.watchDogHost) || 'localhost';
 if (watchDogPort) {
   const runWatchDog = () => {
     const client = new require('net').Socket();
     client.setEncoding('utf8');
-    client.on('error', function () {
-      console.log('Watchdog connection error. Terminating webpack process...');
+    client.on('error', function (err) {
+      console.log('Watchdog connection error. Terminating webpack process...', err);
       client.destroy();
       process.exit(0);
     });
@@ -104,8 +106,7 @@ if (watchDogPort) {
       client.destroy();
       runWatchDog();
     });
-
-    client.connect(watchDogPort, 'localhost');
+    client.connect(watchDogPort, watchDogHost);
   };
   runWatchDog();
 }
@@ -167,6 +168,7 @@ const createServiceWorkerPlugin = function () {
     ],
     webpackCompilationPlugins: [
       new DefinePlugin({
+        VITE_ENABLED: 'false',
         OFFLINE_PATH: JSON.stringify(offlinePath)
       })
     ]
@@ -362,7 +364,7 @@ module.exports = {
       }),
 
     // Service worker for offline
-    pwaEnabled && createServiceWorkerPlugin(),
+    offlineEnabled && createServiceWorkerPlugin(),
 
     // Generate compressed bundles when not devMode
     !devMode && new CompressionPlugin(),
