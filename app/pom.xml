@@ -16,7 +16,7 @@
     <properties>
         <bnd.version>5.2.0</bnd.version>
         <spifly.version>1.3.4</spifly.version>
-        <extra.bundles.dir>${project.build.directory}/extra-bundles</extra.bundles.dir>        
+        <extra.bundles.dir>${project.build.directory}/extra-bundles</extra.bundles.dir>
     </properties>
 
     <dependencies>
@@ -25,13 +25,13 @@
             <artifactId>project-base-osgi</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
+
         <dependency>
             <groupId>com.vaadin</groupId>
             <artifactId>license-checker</artifactId>
-            <version>1.1.1</version>
+            <version>1.4.1</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.framework</artifactId>
@@ -113,7 +113,7 @@
             <version>2.9.0</version>
         </dependency>
 
-        <!-- Those dependencies are need for OSGi container where this bundle 
+        <!-- Those dependencies are need for OSGi container where this bundle
             will be deployed. -->
 
         <dependency>
@@ -187,7 +187,7 @@
     </dependencies>
     <build>
         <plugins>
-            <!-- This dynamically calculates all the things we need to run 
+            <!-- This dynamically calculates all the things we need to run
                 our code. -->
             <plugin>
                 <groupId>biz.aQute.bnd</groupId>
