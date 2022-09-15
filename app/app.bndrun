@@ -10,5 +10,5 @@
 	bnd.identity;version='6.0';id='com.vaadin.flow.html.components',\
 	bnd.identity;version='6.0';id='com.vaadin.flow.push',\
 	bnd.identity;version='6.0';id='com.vaadin.flow.osgi',\
-	bnd.identity;version='1.7.2';id='com.vaadin.license-checker'
+	bnd.identity;version='1.9.0';id='com.vaadin.license-checker'
 
