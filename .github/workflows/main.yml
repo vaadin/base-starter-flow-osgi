@@ -29,5 +29,10 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+    - name: Set License
+      - runs: |
+          LICENSE=${{secrets.LICENSE}}
+          mkdir -p ~/.vaadin.
+          echo '{$LICENSE}' > ~/.vaadin/proKey
     - name: Build with Maven
       run: mvn -B package --file pom.xml
