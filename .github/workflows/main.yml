@@ -31,7 +31,7 @@ jobs:
         distribution: 'adopt'
     - name: Set License
       run: |
-        LICENSE=${{secrets.LICENSE}}
+        LICENSE=${{secrets.VAADIN_PRO_KEY}}
         mkdir -p ~/.vaadin/
         echo '{"username":"'`echo $LICENSE | cut -d / -f1`'","proKey":"'`echo $LICENSE | cut -d / -f2`'"}' > ~/.vaadin/proKey
     - name: Build with Maven
